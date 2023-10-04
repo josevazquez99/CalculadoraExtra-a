@@ -14,20 +14,20 @@
 <h1>Calculadora</h1>
 
 
-
+<%! StringBuilder mostrar = new StringBuilder(""); %>
 <%
 
 
-String numero = request.getParameter("numero") != null ? request.getParameter("numero") : "";
-String operador = request.getParameter("operador") != null ? request.getParameter("operador") : "";
+String numero = request.getParameter("numeroActual") != null ? request.getParameter("numeroActual") : "";
+String operador = request.getParameter("operadorActual") != null ? request.getParameter("operadorActual") : "";
 Calculadora calculadora = new Calculadora();
 
 if(request.getParameter("borrar") != null) {
-    calculadora.limpiar();
+    calculadora.limpiar(mostrar);
 } else if(request.getParameter("enviar") != null) {
-    calculadora.introducirCalculos(numero, operador);
+    calculadora.introducirCalculos(numero, operador, mostrar);
 } else if(request.getParameter("resolver") != null) {
-    calculadora.introducirCalculos(numero, operador);
+    calculadora.introducirCalculos(numero, operador,mostrar);
     double resultado = calculadora.resolver();
     out.println("Resultado: " + resultado);
 }
@@ -46,19 +46,23 @@ if(request.getParameter("borrar") != null) {
  <div class="panel-body">
  <div class="input-group">
  <label class="input-group-addon" id="opr">Resultado</label>
- <input type="text" class="form-control" id="resultado" name="resultado"aria-describedby="basic-addon3">
+
+ <input type="text" class="form-control" id="resultado" name="resultado"value="<%out.print(mostrar); if(request.getParameter("enviar")!=null){
+	 calculadora.resolver();
+	 }
+	 %>"aria-describedby="basic-addon3">
  </div>
  <br>
  <div class="input-group">
- <label class="input-group-addon"  id="numero">Numero</label>
- <input type="number" name="numero" class="form-control" id="num">
+ <label class="input-group-addon"  id="numeroActual">Numero</label>
+ <input type="number" name="numeroActual" class="form-control" id="numeroActual">
  </div>
  <div class="btn-group btn-group-justified" role="group" aria-label="...">
   <div class="btn-group" role="group">
 	  
 	<br>
 
-<select name="operador" class="btn btn-success" id="operador">
+<select name="operadorActual" class="btn btn-success" id="operadorActual">
   <option value="+">+</option>
   <option value="-">-</option>
 
@@ -68,9 +72,9 @@ if(request.getParameter("borrar") != null) {
  </div>
 <br>
 
- <button type="submit" class="btn btn-primary btn-lg btn-block" id="borrar" value="borrar">Borrar</button>
- <button type="submit" class="btn btn-primary btn-lg btn-block" id="enviar" value="enviar">Enviar</button>
- <button type="submit" class="btn btn-primary btn-lg btn-block" id="resolver" value="resolver">Resolver</button>
+ <button type="submit" class="btn btn-primary btn-lg btn-block" id="borrar" name="borrar" value="borrar">Borrar</button>
+ <button type="submit" class="btn btn-primary btn-lg btn-block" id="enviar" name="enviar" value="enviar">Enviar</button>
+ <button type="submit" class="btn btn-primary btn-lg btn-block" id="resolver" name="resolver" value="resolver">Resolver</button>
 
  </div>
  </div>
