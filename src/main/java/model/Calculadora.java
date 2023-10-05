@@ -16,22 +16,14 @@ public class Calculadora {
     }
 
 
-
-    public double getResultado() {
-        return resultado;
-    }
-
-
-
-
-    //metodo para vaciar
+    //Creamos método limpiar para vaciar el resultado para introducir un nuevo calculo
     public void limpiar(StringBuilder mostrar) {
         mostrar.setLength(0);
 
     }
 
 
-    //metodo para introducir calculos en resultado
+    //metodo para ir introduciendo numeros y la operación para hayar el calculo
     public void introducirCalculos(String numero, String operador, StringBuilder mostrar) {
 
         if (!numero.isEmpty()) {
@@ -47,7 +39,7 @@ public class Calculadora {
 
 
     
-    //metodo para resolver
+    //metodo para resolver la operación
     public double resolver(StringBuilder mostrar) {
     	
     	resultado = 0; // Inicializar resultado a 0
