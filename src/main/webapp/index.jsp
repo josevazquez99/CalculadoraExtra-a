@@ -13,7 +13,7 @@
 <body>
 <h1>Calculadora</h1>
 
-
+// Creamos el StringBuilder para mostrar los datos
 <%! StringBuilder mostrar = new StringBuilder(""); %>
 <%
 
@@ -32,7 +32,7 @@ if(request.getParameter("borrar") != null) {
     out.println("Resultado: " + resultado);
 }
 %>
-
+// introducimos el html proporcionado por una plantilla y cambiamos los datos para poder llamar bien a los elementos en los métodos
 <form action="index.jsp" method="get">
 <div class="row">
 </div>
