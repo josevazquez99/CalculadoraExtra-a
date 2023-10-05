@@ -28,7 +28,7 @@ if(request.getParameter("borrar") != null) {
     calculadora.introducirCalculos(numero, operador, mostrar);
 } else if(request.getParameter("resolver") != null) {
     calculadora.introducirCalculos(numero, operador,mostrar);
-    double resultado = calculadora.resolver();
+    double resultado = calculadora.resolver(mostrar);
     out.println("Resultado: " + resultado);
 }
 %>
@@ -47,9 +47,7 @@ if(request.getParameter("borrar") != null) {
  <div class="input-group">
  <label class="input-group-addon" id="opr">Resultado</label>
 
- <input type="text" class="form-control" id="resultado" name="resultado"value="<%out.print(mostrar); if(request.getParameter("enviar")!=null){
-	 calculadora.resolver();
-	 }
+ <input type="text" class="form-control" id="resultado" name="resultado"value="<%out.print(mostrar);
 	 %>"aria-describedby="basic-addon3">
  </div>
  <br>
@@ -63,8 +61,10 @@ if(request.getParameter("borrar") != null) {
 	<br>
 
 <select name="operadorActual" class="btn btn-success" id="operadorActual">
+  <option></option>
   <option value="+">+</option>
   <option value="-">-</option>
+  
 
 </select>
 
