@@ -24,14 +24,14 @@ public class Calculadora {
 
 
 
-
+    //metodo para vaciar
     public void limpiar(StringBuilder mostrar) {
         mostrar.setLength(0);
 
     }
 
 
-
+    //metodo para introducir calculos en resultado
     public void introducirCalculos(String numero, String operador, StringBuilder mostrar) {
 
         if (!numero.isEmpty()) {
@@ -47,24 +47,41 @@ public class Calculadora {
 
 
     
-
+    //metodo para resolver
     public double resolver(StringBuilder mostrar) {
+    	
+    	resultado = 0; // Inicializar resultado a 0
+        int operando = 0; // Inicializar el operando actual a 0
+        char operador = '+'; // Inicializar el operador actual a '+'
 
-    	resultado = Character.getNumericValue(mostrar.charAt(0));//cambia a numeros
-    	for(int i = 1;i < mostrar.length();i++) {
-    		if(mostrar.charAt(i)== '+') {
-    			resultado += Character.getNumericValue(mostrar.charAt(i+1));
-    		}
-    		if(mostrar.charAt(i)== '-') {
-    			resultado -= Character.getNumericValue(mostrar.charAt(i+1));
-    		}
-    	}
+        for (int i = 0; i < mostrar.length(); i++) {
+            char caracter = mostrar.charAt(i);
+            if (caracter == '+' || caracter == '-') {
+                if (operador == '+') {
+                    resultado += operando;
+                } else if (operador == '-') {
+                    resultado -= operando;
+                }
+                // Actualizamos el operador y el operando para la próxima iteración
+                operador = caracter;
+                operando = 0;
+            } else {
+                // Si es un dígito, lo agregamos al operando actual
+                operando = operando * 10 + Character.getNumericValue(caracter);
+            }
+        }
 
-    	mostrar.delete(0, mostrar.length());//vaciar 
-    	mostrar.append(resultado);
+        // Al final del bucle, debemos agregar el último operando al resultado
+        if (operador == '+') {
+            resultado += operando;
+        } else if (operador == '-') {
+            resultado -= operando;
+        }
 
-    	return resultado;
+        mostrar.delete(0, mostrar.length()); // Vaciar el StringBuilder
+        mostrar.append(resultado);
 
+        return resultado;
     }
 
 
