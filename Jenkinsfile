@@ -22,7 +22,8 @@ pipeline {
         }
         stage('Desplegar') {
             steps {
-                // Aquí puedes agregar los pasos para desplegar la aplicación en un servidor web
+                // Aquí puedes agregar los pasos para desplegar la aplicación
+                // en un servidor web, como Tomcat
                 // Por ejemplo, copiar el artefacto generado a la ubicación de despliegue
                 sh 'cp target/*.war /ruta/del/despliegue'
             }
