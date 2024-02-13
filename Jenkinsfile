@@ -11,7 +11,7 @@ pipeline {
         stage('Compilar') {
             steps {
                 // Compilar el proyecto Maven
-                sh 'mvn clean package'
+                sh 'mvn clean compile'
             }
         }
         stage('Pruebas') {
@@ -22,10 +22,9 @@ pipeline {
         }
         stage('Desplegar') {
             steps {
-                // Despliegue de la aplicación en un servidor web
-                // Por ejemplo, si estás usando Tomcat
-                // Puedes copiar el archivo WAR generado al directorio webapps
-                sh 'cp target/*.war /ruta/de/despliegue/de/tomcat/webapps/'
+                // Desplegar la aplicación en un servidor web, por ejemplo, Tomcat
+                // Puedes ajustar este comando según tu entorno de despliegue
+                sh 'mvn tomcat7:deploy'
             }
         }
     }
