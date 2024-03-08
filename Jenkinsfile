@@ -1,30 +1,45 @@
 pipeline {
     agent any
-    
     stages {
-        stage('Clonar Repositorio') {
+        stage('Checkout') {
             steps {
-                // Clonar el repositorio desde Git
                 git 'https://github.com/josevazquez99/CalculadoraExtra-a.git'
             }
         }
-        stage('Compilar') {
+        stage('Build') {
             steps {
-                // Compilar el proyecto Maven
-                sh 'mvn clean compile'
+                sh 'mvn clean install'
             }
         }
-        stage('Pruebas') {
+        stage('Test') {
             steps {
-                // Ejecutar pruebas automatizadas
                 sh 'mvn test'
             }
         }
-        stage('Desplegar') {
+        stage('Package') {
             steps {
-                // Desplegar la aplicación en un servidor web, por ejemplo, Tomcat
-                // Puedes ajustar este comando según tu entorno de despliegue
-                sh 'mvn tomcat7:deploy'
+                sh 'mvn package'
+            }
+        }
+        stage('Deploy') {
+            steps {
+                container('tomcat') {
+                    sh 'cp target/CalculadoraExtra.war /usr/local/tomcat/webapps/'
+                }
+            }
+        }
+        stage('Cleanup') {
+            steps {
+                sh 'rm -rf target/'
+            }
+        }
+        stage('Notifications') {
+            steps {
+                emailext(
+                    to: 'josevazquez99@example.com',
+                    subject: 'Pipeline completed',
+                    body: 'The pipeline has completed successfully.'
+                )
             }
         }
     }
