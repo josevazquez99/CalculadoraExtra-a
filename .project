@@ -10,6 +10,10 @@
 			<arguments>
 			</arguments>
 		</buildCommand>
+		<fileset dir="${server.src}" casesensitive="yes">
+  		<include name="**/*.java"/>
+  		<exclude name="**/*Test*"/>
+		</fileset>
 		<buildCommand>
 			<name>org.eclipse.wst.common.project.facet.core.builder</name>
 			<arguments>
